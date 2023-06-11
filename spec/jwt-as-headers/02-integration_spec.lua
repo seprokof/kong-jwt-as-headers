@@ -1,7 +1,7 @@
 local helpers = require "spec.helpers"
 
 
-local PLUGIN_NAME = "myplugin"
+local PLUGIN_NAME = "jwt-as-headers"
 
 
 for _, strategy in helpers.all_strategies() do if strategy ~= "cassandra" then
@@ -52,36 +52,38 @@ for _, strategy in helpers.all_strategies() do if strategy ~= "cassandra" then
 
 
     describe("request", function()
-      it("gets a 'hello-world' header", function()
+      it("checks 'Claim-Name' header assigned to request", function()
         local r = client:get("/request", {
           headers = {
+            Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
             host = "test1.com"
           }
         })
         -- validate that the request succeeded, response status 200
         assert.response(r).has.status(200)
         -- now check the request (as echoed by mockbin) to have the header
-        local header_value = assert.request(r).has.header("hello-world")
+        local header_value = assert.request(r).has.header("Claim-Name")
         -- validate the value of that header
-        assert.equal("this is on a request", header_value)
+        assert.equal("John Doe", header_value)
       end)
     end)
 
 
 
     describe("response", function()
-      it("gets a 'bye-world' header", function()
+      it("checks 'Claim-Name' header assigned to response", function()
         local r = client:get("/request", {
           headers = {
+            Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
             host = "test1.com"
           }
         })
         -- validate that the request succeeded, response status 200
         assert.response(r).has.status(200)
         -- now check the response to have the header
-        local header_value = assert.response(r).has.header("bye-world")
+        local header_value = assert.response(r).has.header("Claim-Name")
         -- validate the value of that header
-        assert.equal("this is on the response", header_value)
+        assert.equal("John Doe", header_value)
       end)
     end)
 
