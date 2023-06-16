@@ -4,7 +4,7 @@ local package_version = "0.0.1"
 local rockspec_revision = "1"
 
 local github_account_name = "seprokof"
-local github_repo_name = "kong-jwt-as-headers"
+local github_repo_name = "kong-plugin-jwt-as-headers"
 local git_checkout = package_version == "dev" and "master" or package_version
 
 
