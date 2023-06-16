@@ -1,6 +1,6 @@
 local JwtAsHeaders = {
   PRIORITY = 10,
-  VERSION = "0.0.1",
+  VERSION = "1.0.0",
 }
 
 local jwt_parser = require "kong.plugins.jwt.jwt_parser"
