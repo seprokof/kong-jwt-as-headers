@@ -1,5 +1,6 @@
 local typedefs = require "kong.db.schema.typedefs"
 
+
 return {
   name = "jwt-as-headers",
   fields = {

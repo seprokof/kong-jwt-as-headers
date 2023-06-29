@@ -3,7 +3,39 @@ local JwtAsHeaders = {
   VERSION = "1.0.0",
 }
 
+
 local jwt_parser = require "kong.plugins.jwt.jwt_parser"
+
+
+local function is_array(t)
+  local i = 0
+  for _ in pairs(t) do
+    i = i + 1
+    if t[i] == nil then return false end
+  end
+  return true
+end
+
+
+local function capitalize_first(str)
+  return (str:gsub("^%l", string.upper))
+end
+
+
+local function write(key, val)
+  if type(val) == "table" then
+    if is_array(val) then
+      write(key, table.concat(val, ", "))
+    else
+      for k, v in pairs(val) do
+        write(key.."-"..capitalize_first(k), v)
+      end
+    end
+  else
+    kong.service.request.set_header(key, val)
+  end
+end
+
 
 function JwtAsHeaders:access(plugin_conf)
   local header_value = kong.request.get_headers()[plugin_conf.token_header_name]
@@ -20,31 +52,5 @@ function JwtAsHeaders:access(plugin_conf)
   end
 end
 
-function capitalize_first(str)
-  return (str:gsub("^%l", string.upper))
-end
-
-function write(key, val)
-  if type(val) == "table" then
-    if is_array(val) then
-      write(key, table.concat(val, ", "))
-    else
-      for k, v in pairs(val) do
-        write(key.."-"..capitalize_first(k), v)
-      end
-    end
-  else
-    kong.service.request.set_header(key, val)
-  end
-end
-
-function is_array(t)
-  local i = 0
-  for _ in pairs(t) do
-    i = i + 1
-    if t[i] == nil then return false end
-  end
-  return true
-end
 
 return JwtAsHeaders
