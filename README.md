@@ -1,5 +1,6 @@
-[![Unix build](https://img.shields.io/github/actions/workflow/status/seprokof/kong-plugin-jwt-as-headers/test.yml?branch=master&label=Test&logo=linux)](https://github.com/seprokof/kong-plugin-jwt-as-headers/actions/workflows/test.yml)
 [![Luacheck](https://github.com/seprokof/kong-plugin-jwt-as-headers/workflows/Lint/badge.svg)](https://github.com/seprokof/kong-plugin-jwt-as-headers/actions/workflows/lint.yml)
+[![Unix build](https://img.shields.io/github/actions/workflow/status/seprokof/kong-plugin-jwt-as-headers/test.yml?branch=master&label=Test&logo=linux)](https://github.com/seprokof/kong-plugin-jwt-as-headers/actions/workflows/test.yml)
+[![Coverage Status](https://coveralls.io/repos/github/seprokof/kong-plugin-jwt-as-headers/badge.svg?branch=master)](https://coveralls.io/github/seprokof/kong-plugin-jwt-as-headers?branch=master)
 
 # kong-plugin-jwt-as-headers
 
